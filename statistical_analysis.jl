@@ -109,3 +109,14 @@ model_age_gen = lm(@formula(suicides_100k_pop ~ age+generation), data) # potenti
     positive definite so Cholesky decomposition failed. Lolol, yeap, definitely
     highly correlated.
 =#
+
+#===============================================================================
+===============================================================================#
+function qqplot(obs,F⁰,title)
+    nobs=length(obs)
+    sort!(obs)
+    quantiles⁰ = [quantile(F⁰,i/nobs) for i in 1:nobs]
+    # Note that only n-1 points may be plotted, as quantile(F⁰,1) may be inf
+    plot(quantiles⁰, obs, seriestype=:scatter, xlabel="Theoretical Quantiles", ylabel = "Sample Quantiles", title=title, label="" )
+    plot!(obs,obs,label="")
+end
